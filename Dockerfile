@@ -1,22 +1,23 @@
-# FROM python:3.9
 FROM ubuntu:20.04
 
-# WORKDIR /
+# Envs
+ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y python3.9 python3.9-dev pip
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y \
+    python3.9 \
+    python3.9-dev \
+    python3-pip \
+    && rm -rf /var/lib/lists/*
+
+
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-RUN pip install --no-cache-dir -r requirements.txt
-
-# COPY . /
-
 EXPOSE 8000 
 
-CMD [ "fastapi", "run", "app/main.py", "--port", "8000" ]
+CMD [ "python3", "-m","uvicorn", "app:main:app","--host", "0.0.0.0", "--port", "8000" ]
 
-
-
-# COPY . .
-# RUN pip install -r requirements.txt
-# CMD ["python]
