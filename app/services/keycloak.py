@@ -205,8 +205,8 @@ class KeycloakService:
                 aud=payload['aud'],
                 # sub=payload['sub']
             )
-            logger.info(f"Claims extracted successfully for user {
-                        claims.preferred_username}")
+            # logger.info(f"Claims extracted successfully for user {
+                        # claims.preferred_username}")
             return claims
         except ExpiredSignatureError:
             logger.error("Token decoding failed: Signature has expired")
