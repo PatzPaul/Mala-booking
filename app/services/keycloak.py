@@ -125,8 +125,8 @@ class KeycloakService:
     async def delete_user(self, keycloak_id: str):
         try:
             self.keycloak_admin.delete_user(keycloak_id)
-            logger.info(
-                "User with keycloak ID {keycloak_id} deleted from keycloak")
+            # logger.info(
+                # "User with keycloak ID {keycloak_id} deleted from keycloak")
         except KeycloakAuthenticationError as e:
             logger.error(f"Keycloak authentication error: {e}")
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -334,8 +334,8 @@ class KeycloakService:
                     ]
                 }
             )
-            logger.info(
-                f"Password reset successfully for Keycloak ID: {keycloak_id}")
+            # logger.info(
+                # f"Password reset successfully for Keycloak ID: {keycloak_id}")
         except KeycloakAuthenticationError as e:
             logger.error(f"Keycloak authentication error: {e}")
             raise HTTPException(
@@ -502,51 +502,3 @@ class KeycloakService:
                 headers={"WWW-Authenticate": "Bearer"},
             )
 
-
-#     async def get_current_user_from_cookies(
-#     access_token: str = Cookie(None),
-#     csrf_token: str = Header(None),
-#     csrf_cookie: str = Cookie(None)
-# ) -> User:
-#         """
-#         Validate the Bearer token stored in cookies and retrieve the current user.
-#         """
-#         if not access_token:
-#             raise HTTPException(
-#                 status_code=status.HTTP_401_UNAUTHORIZED,
-#                 detail="Access token missing",
-#                 headers={"WWW-Authenticate": "Bearer"},
-#             )
-
-#         # Validate CSRF token
-#         if csrf_token != csrf_cookie:
-#             raise HTTPException(
-#                 status_code=status.HTTP_403_FORBIDDEN,
-#                 detail="Invalid CSRF token",
-#             )
-
-#         try:
-#             # Decode and validate the token using KeycloakService
-#             claims = keycloak_service.decode_token(access_token)
-#             logger.info(f"Decoded token: {claims}")
-
-#             # Map the claims to the User schema
-#             user = User(
-#                 user_id=claims.sub,
-#                 keycloak_id=claims.sub,
-#                 email=claims.email,
-#                 username=claims.preferred_username,
-#                 first_name=claims.given_name,
-#                 last_name=claims.family_name,
-#                 role=claims.roles[0] if claims.roles else "User"
-#             )
-#             return user
-#         except HTTPException as e:
-#             logger.error(f"Token validation failed: {e.detail}")
-#             raise e
-#         except Exception as e:
-#             logger.error(f"Unexpected error during token validation: {e}")
-#             raise HTTPException(
-#                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-#                 detail="Internal server error during token validation",
-#             )

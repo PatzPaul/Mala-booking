@@ -16,8 +16,8 @@ def test_drive_service():
         credentials = service_account.Credentials.from_service_account_file(
             SERVICE_ACCOUNT_FILE, scopes=SCOPES
         )
-        logger.info(f"Credentials initialized successfully:{credentials}")
-        drive_service = build('drive', 'v3', credentials=credentials)
+        # logger.info(f"Credentials initialized successfully:{credentials}")
+        # drive_service = build('drive', 'v3', credentials=credentials)
 
         # List files in the folder
         query = f"'{FOLDER_ID}' in parents"
