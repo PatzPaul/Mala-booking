@@ -308,14 +308,32 @@ class MessageUpdate(BaseModel):
     class Config:
         from_attributes: True
 
+# ImageUpload Schema
+class ImageUpload(BaseModel):
+    image_base64: str
+    is_icon: bool = False
+
+
+class ImageUploadResponse(BaseModel):
+    success: bool
+    url: Optional[str] = None
+    public_id: Optional[str] = None
+    error: Optional[str] = None
+
+class ImageDeleteResponse(BaseModel):
+    success: bool
+    message: str
+    public_id: Optional[str] = None
+
 
 # Service Schema
 class ServiceBase(BaseModel):
-    salon_id: int
+    salon_id: Optional[int] = None 
     name: str
     description: Optional[str] = None
     duration: int
     price: float
+    image_url: Optional[str] = None
 
     class Config:
         from_attributes: True
@@ -332,6 +350,7 @@ class ServiceCreate(ServiceBase):
     name: str
     description: Optional[str] = None
     price: float
+    image_base64: Optional[str] = None 
 
     class Config:
         from_attributes: True
@@ -342,6 +361,8 @@ class ServiceUpdate(ServiceBase):
     description: Optional[str] = None
     duration: Optional[int] = None
     price: Optional[float] = None
+    image_base64: Optional[str] = None
+    remove_image: Optional[bool] = False
 
     class Config:
         from_attributes: True

@@ -206,6 +206,7 @@ class Service(Base):
     price = mapped_column(Numeric(10, 2), nullable=False)
     salon_id = mapped_column(Integer, ForeignKey(
         'salons.salon_id'), nullable=False)
+    image_url = mapped_column(String(255),nullable=True)
     created_at = mapped_column(Date)
     updated_at = mapped_column(Date)
 
