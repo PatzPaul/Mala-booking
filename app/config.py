@@ -34,6 +34,10 @@ class Settings(BaseSettings):
     pg_port: str
     database_url: str
     session_key: str
+    cloudinary_cloud_name: str = os.getenv("CLOUDINARY_CLOUD_NAME")
+    cloudinary_api_key: str = os.getenv("CLOUDINARY_API_KEY")
+    cloudinary_api_secret: str = os.getenv("CLOUDINARY_API_SECRET")
+    cloudinary_url: str = os.getenv("CLOUDINARY_URL")
     # google_scopes: str = os.getenv("GOOGLE_SCOPES")
     # google_service_account: str = os.getenv("GOOGLE_SERVICE_ACCOUNT")
     # google_drive_folder_id: str = os.getenv("GOOGLE_FOLDER_ID")
